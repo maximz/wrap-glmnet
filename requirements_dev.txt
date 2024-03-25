@@ -2,7 +2,7 @@ bump2version>=1.0.1
 coverage>=7.2.2
 extendanything == 0.0.1
 furo==2024.1.29
-genetools == 0.7.1
+genetools == 0.7.3
 multiclass-metrics == 0.0.1
 numpy == 1.26.4
 pandas == 2.2.1
