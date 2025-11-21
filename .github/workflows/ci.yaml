@@ -43,7 +43,7 @@ jobs:
       # don't abort all other jobs
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: [3.12]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
           # This path is specific to Ubuntu
           path: ~/.cache/pip
           # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}-${{ hashFiles('requirements_dev_extra.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
@@ -73,7 +73,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
+          pip install -e .
           pip install -U codecov
       - name: Lint
         run: |
@@ -105,15 +105,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.12
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
       - name: make docs
         run: make docs
       - name: deploy dev docs to netlify
@@ -123,7 +122,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEV_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir="docs/_build/html"
+          args: deploy --dir="docs/_build/html" --no-build
         timeout-minutes: 5
 
 
@@ -148,15 +147,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.12
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
           pip install build
 
       - name: Build a binary wheel and a source tarball
@@ -171,7 +169,7 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_PROD_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.PROD_NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir="docs/_build/html" --prod
+          args: deploy --dir="docs/_build/html" --prod --no-build
         timeout-minutes: 5
 
       - name: Publish package

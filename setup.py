@@ -12,7 +12,7 @@ with open("CHANGELOG.md") as history_file:
 
 requirements = [
     "numpy",
-    "glmnet>=2.2.1",
+    "python-glmnet>=2.6.1",
     "extendanything",
     "scikit-learn",
     "pandas",
@@ -35,16 +35,14 @@ setup(
     name="wrap_glmnet",
     description="Wrap Glmnet",
     packages=find_packages(include=["wrap_glmnet", "wrap_glmnet.*"]),
-    python_requires=">=3.8",
-    version="0.1.0",
+    python_requires=">=3.10",
+    version="0.1.1",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     install_requires=requirements,
     license="MIT license",
