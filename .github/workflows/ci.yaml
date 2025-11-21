@@ -43,7 +43,7 @@ jobs:
       # don't abort all other jobs
       fail-fast: false
       matrix:
-        python-version: [3.9]
+        python-version: [3.12]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
           # This path is specific to Ubuntu
           path: ~/.cache/pip
           # Look to see if there is a cache hit for the corresponding requirements file
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}-${{ hashFiles('requirements_dev_extra.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements_dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
@@ -73,7 +73,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt --no-build-isolation
           pip install -e .
           pip install -U codecov
       - name: Lint
@@ -106,15 +105,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.12
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt --no-build-isolation
       - name: make docs
         run: make docs
       - name: deploy dev docs to netlify
@@ -149,15 +147,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.12
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt --no-build-isolation
           pip install build
 
       - name: Build a binary wheel and a source tarball

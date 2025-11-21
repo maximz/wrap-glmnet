@@ -29,14 +29,13 @@ Submit PRs against `develop` branch, then make a release pull request to `master
 
 ```bash
 # Optional: set up a pyenv virtualenv
-pyenv virtualenv 3.9 wrap_glmnet-3.9
-echo "wrap_glmnet-3.9" > .python-version
+pyenv virtualenv 3.12 wrap_glmnet-3.12
+echo "wrap_glmnet-3.12" > .python-version
 pyenv version
 
 # Install requirements
 pip install --upgrade pip wheel
 pip install -r requirements_dev.txt
-pip install -r requirements_dev_extra.txt --no-build-isolation
 
 # Install local package
 pip install -e .
