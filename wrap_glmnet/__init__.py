@@ -18,7 +18,7 @@ import inspect
 
 __author__ = """Maxim Zaslavsky"""
 __email__ = "maxim@maximz.com"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 # Set default logging handler to avoid "No handler found" warnings.
 from logging import NullHandler
@@ -97,7 +97,10 @@ def apply_glmnet_wrapper():
                 action = "always" if verbose else "ignore"
                 warnings.simplefilter(action, UndefinedMetricWarning)
 
-                results = Parallel(n_jobs=n_jobs, verbose=verbose, backend="threading")(
+                # WORKAROUND: Force verbose=0 to avoid joblib bug where sequential execution
+                # (n_jobs=1 or threading backend with small workloads) doesn't initialize
+                # _pre_dispatch_amount, causing AttributeError during exception handling.
+                results = Parallel(n_jobs=n_jobs, verbose=0, backend="threading")(
                     delayed(wrapped_fit_and_score)(
                         est=est,
                         scorer=scorer,
