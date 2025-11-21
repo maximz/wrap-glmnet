@@ -73,7 +73,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
+          pip install -r requirements_dev_extra.txt --no-build-isolation
           pip install -e .
           pip install -U codecov
       - name: Lint
@@ -114,7 +114,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
+          pip install -r requirements_dev_extra.txt --no-build-isolation
       - name: make docs
         run: make docs
       - name: deploy dev docs to netlify
@@ -157,7 +157,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements_dev.txt
-          pip install -r requirements_dev_extra.txt
+          pip install -r requirements_dev_extra.txt --no-build-isolation
           pip install build
 
       - name: Build a binary wheel and a source tarball

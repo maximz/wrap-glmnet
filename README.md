@@ -36,7 +36,7 @@ pyenv version
 # Install requirements
 pip install --upgrade pip wheel
 pip install -r requirements_dev.txt
-pip install -r requirements_dev_extra.txt
+pip install -r requirements_dev_extra.txt --no-build-isolation
 
 # Install local package
 pip install -e .

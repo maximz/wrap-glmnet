@@ -1,19 +1,19 @@
 # https://github.com/civisanalytics/python-glmnet
 
 # numpy must already be installed before we install glmnet
-
-# otherwise you get:
-#   Downloading glmnet-2.2.1.tar.gz (90 kB)
-#      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.1/90.1 kB 4.3 MB/s eta 0:00:00
-#   Preparing metadata (setup.py): started
-#   Preparing metadata (setup.py): finished with status 'error'
-#   error: subprocess-exited-with-error
 #
-#   × python setup.py egg_info did not run successfully.
-#   │ exit code: 1
-#   ╰─> [2 lines of output]
-#       install requires: 'numpy'. use pip or easy_install.
-#         $ pip install numpy
-#       [end of output]
+# glmnet 2.2.1 only has pre-built wheels for Python 3.6-3.8.
+# For Python 3.9+, pip builds from source using PEP 517 build isolation,
+# which creates an isolated environment that doesn't have access to
+# already-installed packages like numpy.
+#
+# Since glmnet's build process needs numpy but doesn't properly declare
+# it as a build dependency, we use --no-build-isolation to allow the
+# build to access our already-installed numpy from requirements_dev.txt.
+#
+# Without --no-build-isolation on Python 3.9+, you get:
+#   Getting requirements to build wheel: finished with status 'error'
+#   × Getting requirements to build wheel did not run successfully.
+#   ╰─> install requires: 'numpy'. use pip or easy_install.
 
 glmnet == 2.2.1
