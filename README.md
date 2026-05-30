@@ -1,5 +1,10 @@
 # wrap-glmnet
 
+[![](https://img.shields.io/pypi/v/wrap_glmnet.svg)](https://pypi.python.org/pypi/wrap_glmnet)
+[![CI](https://github.com/maximz/wrap-glmnet/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/maximz/wrap-glmnet/actions/workflows/ci.yaml)
+[![](https://img.shields.io/badge/docs-here-blue.svg)](https://wrap-glmnet.maximz.com)
+[![](https://img.shields.io/github/stars/maximz/wrap-glmnet?style=social)](https://github.com/maximz/wrap-glmnet)
+
 `wrap_glmnet` is a small Python wrapper around `python-glmnet`'s
 `LogitNet` classifier. It keeps the glmnet elastic-net logistic regression
 solver, but exposes a more sklearn-like estimator and adds control over
