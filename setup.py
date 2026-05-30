@@ -36,7 +36,7 @@ setup(
     description="Wrap Glmnet",
     packages=find_packages(include=["wrap_glmnet", "wrap_glmnet.*"]),
     python_requires=">=3.10",
-    version="0.1.1",
+    version="0.1.2",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
