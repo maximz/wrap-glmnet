@@ -642,10 +642,18 @@ class GlmnetLogitNetWrapper(ExtendAnything, ClassifierMixin, BaseEstimator):
             # Initialize an empty array to store the probabilities
             probs = np.empty((n_samples, len(self.classes_), n_lambdas))
             for i in range(n_lambdas):
+                # The helper distinguishes binary from multiclass by ndim.
+                # Binary path logits have shape (n_samples, 1, n_lambdas):
+                # remove only the class axis, preserving even a single sample.
+                # Otherwise a one-class softmax returns ones, which broadcast
+                # into both class-probability columns.
+                lambda_logits = (
+                    logits[:, 0, i] if len(self.classes_) == 2 else logits[:, :, i]
+                )
                 probs[
                     :, :, i
                 ] = genetools.stats.run_sigmoid_if_binary_and_softmax_if_multiclass(
-                    logits[:, :, i]
+                    lambda_logits
                 )
             return probs
         else:
