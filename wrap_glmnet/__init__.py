@@ -18,7 +18,7 @@ import inspect
 
 __author__ = """Maxim Zaslavsky"""
 __email__ = "maxim@maximz.com"
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 # Set default logging handler to avoid "No handler found" warnings.
 from logging import NullHandler
